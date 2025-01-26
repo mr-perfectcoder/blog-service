@@ -93,64 +93,64 @@ export class BlogsService {
     return blog;
   }
 
-  // async update(
-  //   id: number,
-  //   updateBlog: UpdateBlogDto,
-  //   userId: string,
-  //   file: Express.Multer.File,
-  // ): Promise<Blog> {
-  //   const payload: any = { ...updateBlog };
+  async update(
+    id: number,
+    updateBlog: UpdateBlogDto,
+    userId: string,
+    file: Express.Multer.File,
+  ): Promise<Blog> {
+    const payload: any = { ...updateBlog };
 
-  //   const blog = await this.blogRepository.findOne({
-  //     where: { id, userId },
-  //   });
+    const blog = await this.blogRepository.findOne({
+      where: { id, userId },
+    });
 
-  //   if (!blog) {
-  //     throw new NotFoundException('Blog not found or update failed');
-  //   }
+    if (!blog) {
+      throw new NotFoundException('Blog not found or update failed');
+    }
 
-  //   if (file) {
-  //     // Delete the old image if it exists
-  //     if (blog.image) {
-  //       await this.fileService.deleteFileByLocation(blog.image);
-  //     }
+    if (file) {
+      // Delete the old image if it exists
+      if (blog.image) {
+        await this.fileService.deleteFileByLocation(blog.image);
+      }
 
-  //     // Upload the new image
-  //     const url = await this.fileService.uploadImage(file, 'blogx-images');
-  //     payload.image = url;
-  //   }
+      // Upload the new image
+      const url = await this.fileService.uploadImage(file, 'blogx-images');
+      payload.image = url;
+    }
 
-  //   const updateResult = await this.blogRepository.update(id, payload);
+    const updateResult = await this.blogRepository.update(id, payload);
 
-  //   if (updateResult.affected === 0) {
-  //     throw new NotFoundException('Blog not found or update failed');
-  //   }
+    if (updateResult.affected === 0) {
+      throw new NotFoundException('Blog not found or update failed');
+    }
 
-  //   const updatedBlog = await this.blogRepository.findOneBy({ id });
-  //   if (!updatedBlog) {
-  //     throw new NotFoundException(`Blog with ID ${id} not found after update`);
-  //   }
+    const updatedBlog = await this.blogRepository.findOneBy({ id });
+    if (!updatedBlog) {
+      throw new NotFoundException(`Blog with ID ${id} not found after update`);
+    }
 
-  //   return updatedBlog;
-  // }
+    return updatedBlog;
+  }
 
-  // async remove(id: number, userId: string): Promise<void> {
-  //   const blog = await this.blogRepository.findOne({
-  //     where: { id, userId },
-  //   });
+  async remove(id: number, userId: string): Promise<void> {
+    const blog = await this.blogRepository.findOne({
+      where: { id, userId },
+    });
 
-  //   if (!blog) {
-  //     throw new NotFoundException('Blog not found or delete failed');
-  //   }
+    if (!blog) {
+      throw new NotFoundException('Blog not found or delete failed');
+    }
 
-  //   if (blog.image) {
-  //     await this.fileService.deleteFileByLocation(blog.image);
-  //   }
+    if (blog.image) {
+      await this.fileService.deleteFileByLocation(blog.image);
+    }
 
-  //   const deleteResult = await this.blogRepository.delete(blog.id);
+    const deleteResult = await this.blogRepository.delete(blog.id);
 
-  //   if (deleteResult.affected === 0) {
-  //     throw new NotFoundException(`Blog not found or delete failed`);
-  //   }
-  // }
+    if (deleteResult.affected === 0) {
+      throw new NotFoundException(`Blog not found or delete failed`);
+    }
+  }
 }
