@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:20
+FROM node:21-alpine
 
 # Set working directory
 WORKDIR /app
@@ -40,4 +40,4 @@ EXPOSE 3000
 RUN npm run build
 
 # Start the application
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "start"]
