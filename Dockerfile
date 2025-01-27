@@ -32,9 +32,11 @@ ENV JWT_EXPIRE_IN=$JWT_EXPIRE_IN
 ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 ENV AWS_REGION=$AWS_REGION
-
+ENV NODE_OPTIONS=--max-old-space-size=8192
 # Expose the application port
 EXPOSE 3000
+
+
 
 # Build the application
 RUN npm run build
